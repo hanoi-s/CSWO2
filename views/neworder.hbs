@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+
+    <title>Create Work Order</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/dashboard">
+                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png" width="20"
+                            height="20">
+                    </a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li><a href="/dashboard">Current Work Orders</a></li>
+                        <li><a href="/neworder">Create New Work Order</a></li>
+                        <li><a href="/summary">Report Summary</a></li>
+                </ul>
+                 <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auditlogs">Audit Logs</a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">(Account Name) <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+            <h2>Civil Works and Sanitary Office</h2>
+            <p class="lead">WORK ORDER FORM</p>
+        </div>
+
+        <hr class="mb-4">
+
+        <div class="row">
+            <form action="postNewOrder" method="POST">
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Request Information</h4>
+                    {{!-- Row for Location and Item --}}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="Gokongwei" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="item">Item</label>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" value="Key" required>
+                        </div>
+                    </div>
+                    <br>
+                    {{!-- Row for Category, Type, and Target Date --}}
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="workCtg">Category of Work</label>
+                            <select class="form-control" id="workCtg" name="workCtg" required>
+                                <option>Select Category</option>
+                                {{#each category}}
+                                <option value="{{CategoryName}}">{{CategoryName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="workType">Type of Work</label>
+                            <select class="form-control" id="workType" name="workType" required>
+                                <option>Select Type</option>
+                                {{#each type}}
+                                <option value="{{TypeName}}">{{TypeName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-group">
+                                <label class="control-label" for="targetdate">Target Date of Completion</label>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYYY" type="date" required/>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Row for Other Request Details--}}
+                    <div class="row">
+                        <div class="col-md-10 mb-3">
+                            <label for="details">Other Request Details:</label>
+                            <textarea class="form-control" rows="3" name="details" id="details">Some detail</textarea>
+                        </div>
+                    </div>
+                    <br>
+                    {{!-- Row for In Charge and Status--}}                    
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="incharge">In Charge</label>
+                            <select class="form-control" id="incharge" name="incharge" required>
+                                <option value="">Select In Charge</option>
+                                {{#each employee}}
+                                <option value="{{FirstName}}">{{FirstName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status" required>
+                                {{#each status}}
+                                {{#ifEquals StatusName 'Pending for Approval'}}
+                                    <option value="{{StatusName}}">{{StatusName}}</option>
+                                    <option value="Approved">Approved</option>
+                                {{/ifEquals}}
+                                {{/each}}>
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                </div>    
+
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="mb-3">Requester Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"  value="shanicka" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="minor" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="shanicka@gmail.com" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="address">Department or Office</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="ccs" required>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-lg btn-block" type="submit">Create New Work Order</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

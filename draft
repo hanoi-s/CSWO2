@@ -1,0 +1,103 @@
+postDeleteOrder: async function(req, res) {
+    RequestModel.find( {_id: req.params.woid} ).then((REQ) => { 
+        UserModel.findOne({Email: req.session.email}).then((user) => {
+
+            var previous = [];
+
+            if(req.body.location != REQ.Location) {
+                previous.push("Location")
+            }
+
+            if(req.body.item != REQ.Item) {
+                previous.push("Item")
+            }
+
+            if(req.body.details != REQ.Details) {
+                previous.push("Details")
+            }
+
+            if(req.body.remarks != REQ.Remarks) {
+                previous.push("Remarks")
+            }
+
+            if(req.body.DateTarget != REQ.DateTarget) {
+                previous.push("DateTarget")
+            }
+
+            var array = REQ.body.workers;
+            var WORKER_ARRAY = array.split(", ");
+
+            if(WORKER_ARRAY != REQ.Workers) {
+                previous.push("Workers")
+            }
+
+            if(req.body.status != REQ.Status.StatusName) {
+                previous.push("Status")
+            }
+
+            if(req.body.workCtg != REQ.Category.CategoryName) {
+               previous.push("Category")
+            }
+
+            if(req.body.workType != REQ.Type.TypeName) {
+                previous.push("Type")
+            }
+
+            if(req.body.incharge != REQ.InCharge.FirstName) {
+                previous.push("InCharge")
+            }
+
+            if(req.body.firstName != REQ.Requester.FirstName) {
+                previous.push("Requester First Name")
+            }
+
+            if(req.body.lastName != REQ.Requester.LastName) {
+                previous.push("Requester Last Name")
+            }
+
+            if(req.body.email != REQ.Requester.Email) {
+                previous.push("Requester Email")
+            }
+
+            if(req.body.address != REQ.Requester.Department) {
+                previous.push("Requester Department")
+            }
+
+            if(req.body.responsetime != REQ.Requester.Feedback.ResponseTime) {
+                previous.push("Feedback Response Time")
+            }
+
+            if(req.body.accuracy != REQ.Requester.Feedback.Accuracy) {
+                previous.push("Feedback Accuracy")
+            }
+
+            if(req.body.efficiency != REQ.Requester.Feedback.Efficiency) {
+                previous.push("Feedback Efficiency")
+            }
+
+            if(req.body.courtesy != REQ.Requester.Feedback.Courtesy) {
+                previous.push("Feedback Courtesy")
+            }
+
+            if(req.body.feedback != REQ.Requester.Feedback.Remarks) {
+                previous.push("Feedback Remarks")
+            }
+
+
+
+
+
+
+
+
+
+
+        })
+    })
+}
+
+ReferenceNo: {type: String},
+ModifiedBy: [User],     // Can be multiple
+PrintedBy: [User],      // Can be multiple
+InCharge: Employee,
+Requester: Requester

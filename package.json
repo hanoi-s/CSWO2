@@ -1,0 +1,29 @@
+{
+  "name": "cswo.dlsu.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "cookie-parser": "^1.4.6",
+    "exphbs": "^1.2.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.2.0",
+    "mongoose": "^6.7.4",
+    "nodemon": "^2.0.20",
+    "password-hash": "^1.2.2",
+    "pdfkit": "^0.13.0",
+    "short-uid": "^0.1.0"
+  }
+}
